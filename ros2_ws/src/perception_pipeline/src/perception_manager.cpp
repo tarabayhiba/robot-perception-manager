@@ -145,6 +145,22 @@ private:
 
       loop_rate.sleep();
     }
+
+    // Node is shutting down (Ctrl+C) while this goal is still active
+    // rclcpp_action aborts the process if a goal handle is destroyed without
+    // reaching a terminal state, so try to resolve it here before returning
+    // The underlying action server may already be tearing down concurrently
+    // with this thread, so guard against that race instead of crashing
+    if (goal_handle->is_active()) {
+      try {
+        result->total_detections = detections_so_far;
+        result->success = false;
+        goal_handle->abort(result);
+        RCLCPP_INFO(this->get_logger(), "Node shutting down, aborting active goal");
+      } catch (const std::exception & e) {
+        RCLCPP_WARN(this->get_logger(), "Could not resolve goal during shutdown: %s", e.what());
+      }
+    }
   }
 };  // class PerceptionManager
 

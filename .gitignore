@@ -11,3 +11,6 @@ __pycache__/
 .cache
 .DS_Store
 compile_commands.json
+*.pdf
+*.gv
+

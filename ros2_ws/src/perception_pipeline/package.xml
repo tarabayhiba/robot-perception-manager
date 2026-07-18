@@ -3,7 +3,7 @@
 <package format="3">
   <name>perception_pipeline</name>
   <version>0.0.0</version>
-  <description> ROS2 package containing the perception manager node, which coordinates target object detection using an action server, service server, and config params</description>
+  <description> ROS2 package containing the perception manager node, which coordinates target object detection using an action server, service server, and config params as well as camera_tf_broadcaster node</description>
   <maintainer email="tarabayhiba05@gmail.com">hiba-t</maintainer>
   <license>Apache-2.0</license>
 
